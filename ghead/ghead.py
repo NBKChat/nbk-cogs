@@ -20,7 +20,7 @@ class Ghead:
         files = list_dir(url, ext)
         if head + ".png" in files:
             await self.bot.say("http://whiskeycrow.com/Graal/heads/" + head + ".png")
-          else:
+        else:
             await self.bot.say(head + " not found, noob")
 
 def setup(bot):
