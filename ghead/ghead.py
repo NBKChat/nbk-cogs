@@ -4,7 +4,7 @@ import requests
 import random
 
 url = 'http://whiskeycrow.com/Graal/heads/'
-ext = 'png'
+ext = 'gif'
 
 def list_dir(url, ext=''):
     page = requests.get(url).text
