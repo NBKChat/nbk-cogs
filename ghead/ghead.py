@@ -22,6 +22,10 @@ class Ghead:
             await self.bot.say("http://whiskeycrow.com/Graal/heads/" + head + ".png")
         else:
             await self.bot.say(head + " not found, noob")
-
+            
+    async def randhead(self):
+        
+        await self.bot.say("http://whiskeycrow.com/Graal/heads/" + random.choice(files))
+        
 def setup(bot):
     bot.add_cog(Ghead(bot))
