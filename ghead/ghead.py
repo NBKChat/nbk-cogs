@@ -26,7 +26,7 @@ class Ghead:
             await self.bot.say(head + " not found, noob")
 
     @commands.command()
-    async def randhead(self):
+    async def grand(self):
 
         files = list_dir(url, ext)
         await self.bot.say("http://whiskeycrow.com/Graal/heads/" + random.choice(files))
