@@ -17,12 +17,11 @@ class Ghead:
             soup = BeautifulSoup(page, 'html.parser')
             return [node.get('href') for node in soup.find_all('a') if node.get('href').endswith(ext)]
 
-        for file in list_dir(url, ext):
-            if head + ".png" == file:
-                await self.bot.say("http://whiskeycrow.com/Graal/heads/" + head + ".png")
-            else:
-                match_string = False
-        if match_string == False: await self.bot.say(head + " not found, noob")
+        files = list_dir(url, ext)
+        if head + ".png" in files:
+            await self.bot.say("http://whiskeycrow.com/Graal/heads/" + head + ".png")
+          else:
+            await self.bot.say(head + " not found, noob")
 
 def setup(bot):
     bot.add_cog(Ghead(bot))
