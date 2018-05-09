@@ -8,10 +8,10 @@ class Ghead:
 
     @commands.command()
     async def ghead(self, head):
-        
+
         url = 'http://whiskeycrow.com/Graal/heads/'
         ext = 'png'
-
+        match_string = True
         def list_dir(url, ext=''):
             page = requests.get(url).text
             soup = BeautifulSoup(page, 'html.parser')
@@ -21,8 +21,8 @@ class Ghead:
             if head + ".png" == file:
                 await self.bot.say("http://whiskeycrow.com/Graal/heads/" + head + ".png")
             else:
-                await self.bot.say("Not found, noob")
-
+                match_string = False
+        if match_string == False: await self.bot.say(head + " not found, noob")
 
 def setup(bot):
     bot.add_cog(Ghead(bot))
