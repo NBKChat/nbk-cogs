@@ -1,5 +1,6 @@
 from discord.ext import commands
 from bs4 import BeautifulSoup
+import random
 import requests
 
 class Ghead:
