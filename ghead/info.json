@@ -1,0 +1,10 @@
+{
+    "AUTHOR" : "Tony Montana",
+    "INSTALL_MSG" : "Graal Head cog installed",
+    "NAME" : "Ghead",
+    "SHORT" : "Show a Graal head",
+    "DESCRIPTION" : "Read the short desciption, fool",
+    "TAGS" : ["Graal", "Head"],
+    "REQUIREMENTS" : ["discord"],
+    "HIDDEN" : false
+}
