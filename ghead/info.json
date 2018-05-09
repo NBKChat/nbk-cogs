@@ -5,6 +5,6 @@
     "SHORT" : "Show a Graal head",
     "DESCRIPTION" : "Read the short desciption, fool",
     "TAGS" : ["Graal", "Head"],
-    "REQUIREMENTS" : ["discord", "bs4", "requests"],
+    "REQUIREMENTS" : ["discord", "bs4", "requests", "random"],
     "HIDDEN" : false
 }
