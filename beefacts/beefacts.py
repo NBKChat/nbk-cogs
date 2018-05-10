@@ -29,4 +29,4 @@ class beefacts:
 
 
 def setup(bot):
-    bot.add_cog(beefacts(bot))% 
+    bot.add_cog(beefacts(bot))%
