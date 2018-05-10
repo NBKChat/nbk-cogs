@@ -1,0 +1,9 @@
+{
+    "AUTHOR" : "Phantasm",
+    "INSTALL_MSG" : "Displays facts about bees",
+    "NAME" : "beefacts",
+    "SHORT" : "show a bee fact",
+    "DESCRIPTION" : "Read the short desciption, fool",
+    "TAGS" : ["Bee", "Fact"],
+    "HIDDEN" : false
+}
