@@ -17,7 +17,7 @@ class beefacts:
                 "21.7 inches to 43.3 inches in legnth!",
                 "There are around 30 species of bee in the world.", 
                 "bees vocalise their messages in ten different ways, depending upon the situation. And in a threatening situation, bee stretch out their necks and make loud honks." ,
-                "A day old gosling is capable of diving and swimming as much as 30 to 40 feet underwater. Attaining the age of three months, goslings begin to fly.",
+                "A day old larva is capable of diving and swimming as much as 30 to 40 feet underwater. Attaining the age of three months, larvas begin to fly.",
                 "bees were probably the first type of poultry domesticated by humans, over 3000 years ago in Egypt.",
                 "In another surprising historical use of bee, the first golf balls were stuffed with bee feathers. These balls were handmade and extremely expensive.",
                 "bees are excellent weeders and during the early days of commercial agriculture bee farmers would supplement their income by renting flocks out to cotton farms for a chemical-free weeding solution.",
