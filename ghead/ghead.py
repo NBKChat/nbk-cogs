@@ -31,7 +31,8 @@ class Ghead:
 
         files = list_dir(whiskey_url, ext)
         await self.bot.say("http://whiskeycrow.com/Graal/heads/" + random.choice(files))
-        
+
+
     @commands.command()
     async def gimg(self):
 
