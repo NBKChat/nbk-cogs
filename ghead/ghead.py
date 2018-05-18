@@ -40,7 +40,7 @@ class Ghead:
         html = r.text
         soup = BeautifulSoup(html, 'html.parser')
         link = soup.find('a')
-        await self.bot.say(mafukie_url + link.get('href')
+        await self.bot.say(mafukie_url + link.get('href'))
 
 def setup(bot):
     bot.add_cog(Ghead(bot))
