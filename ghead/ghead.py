@@ -36,8 +36,11 @@ class Ghead:
     @commands.command()
     async def gimg(self):
 
-        files = list_dir(mafukie_url, ext)
-        await self.bot.say(mafukie_url + random.choice(files))
+        r = requests.get(mafukie_url)
+        html = r.text
+        soup = BeautifulSoup(html, 'html.parser')
+        link = soup.find('a')
+        await self.bot.say(mafukie_url + link.get('href'))
 
 def setup(bot):
     bot.add_cog(Ghead(bot))
