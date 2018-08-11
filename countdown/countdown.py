@@ -6,12 +6,12 @@ class countdown:
 
     def __init__(self, bot):
         self.bot = bot
+        self.delta = datetime.datetime(2018, 10, 29) - datetime.datetime.now()
 
-    delta = datetime.datetime(2018, 10, 29) - datetime.datetime.now()
     @commands.command(name="jamcountdown", aliases=["jamcount", "jamtimer", "jamtime"])
 
-    def countdown(self):
-        self.bot.say(delta.days)
+    async def countdown(self):
+        await self.bot.say(delta.days)
 
 
 def setup(bot):
