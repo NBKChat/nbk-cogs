@@ -10,7 +10,7 @@ class countdown:
     delta = datetime.datetime(2018, 10, 29) - datetime.datetime.now()
     @commands.command(name="jamcountdown", aliases=["jamcount", "jamtimer", "jamtime"])
 
-    async def beefact(self):
+    async def countdown(self):
         await self.bot.say(delta.days)
 
 
