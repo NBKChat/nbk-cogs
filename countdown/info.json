@@ -1,0 +1,10 @@
+{
+    "AUTHOR" : "phantas(baddies)LMAOP",
+    "INSTALL_MSG" : "countdown to the jam",
+    "NAME" : "countdown",
+    "SHORT" : "cotndown to jam",
+    "DESCRIPTION" : "COME ON AND SLAM AND WELCOME TO THE JAM",
+    "TAGS" : ["jam"],
+    "REQUIREMENTS" : ["discord","datetime"],
+    "HIDDEN" : false
+}
