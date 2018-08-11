@@ -11,7 +11,7 @@ class countdown:
     @commands.command(name="jamcountdown", aliases=["jamcount", "jamtimer", "jamtime"])
 
     async def countdown(self):
-        await self.bot.say(delta.days)
+        await self.bot.say(self.delta.days)
 
 
 def setup(bot):
