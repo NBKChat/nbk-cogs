@@ -1,0 +1,9 @@
+{
+    "AUTHOR" : "jpz",
+    "INSTALL_MSG" : "crypto forked from some other cog",
+    "NAME" : "crypto",
+    "SHORT" : "show crypto stuff",
+    "DESCRIPTION" : "stuff",
+    "TAGS" : ["bitcoin", "crypto"],
+    "HIDDEN" : false
+}
