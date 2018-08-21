@@ -5,6 +5,7 @@
 | Website : https:www.planetcryptoid.tech
 | Date    : 3/11/2018     
 =================================================
+refactored by jaypz
 '''
 
 import discord
@@ -25,68 +26,9 @@ class Crypto:
         return json.loads(data)
 
     @commands.command()
-    async def btc(self):
+    async def crypto(self, ticker):
         """What is Bitcoin's live price"""
-        url = "https://api.coinmarketcap.com/v1/ticker/bitcoin"
-        data = self.get_jsonparsed_data(url)
-        await self.bot.say(data[0]['name'] + " is priced $" + data[0]['price_usd'] + " (" +
-                            data[0]['percent_change_1h'] + "%)")
-
-    @commands.command()
-    async def eth(self):
-        """What is Ethereum's live price"""
-        url = "https://api.coinmarketcap.com/v1/ticker/ethereum"
-        data = self.get_jsonparsed_data(url)
-        await self.bot.say(data[0]['name'] + " is priced $" + data[0]['price_usd'] + " (" +
-                            data[0]['percent_change_1h'] + "%)")
-
-    @commands.command()
-    async def xrp(self):
-        """What is Ripple's live price"""
-        url = "https://api.coinmarketcap.com/v1/ticker/ripple"
-        data = self.get_jsonparsed_data(url)
-        await self.bot.say(data[0]['name'] + " is priced $" + data[0]['price_usd'] + " (" +
-                            data[0]['percent_change_1h'] + "%)")
-
-    @commands.command()
-    async def bch(self):
-        """What is Bitcoin Cash's live price"""
-        url = "https://api.coinmarketcap.com/v1/ticker/bitcoin-cash"
-        response = self.urllib.request.urlopen(url)
-        data = get_jsonparsed_data(url)
-        await self.bot.say(data[0]['name'] + " is priced $" + data[0]['price_usd'] + " (" +
-                            data[0]['percent_change_1h'] + "%)")
-
-    @commands.command()
-    async def ltc(self):
-        """What is Litecoins's live price"""
-        url = "https://api.coinmarketcap.com/v1/ticker/litecoin"
-        response = self.urllib.request.urlopen(url)
-        data = get_jsonparsed_data(url)
-        await self.bot.say(data[0]['name'] + " is priced $" + data[0]['price_usd'] + " (" +
-                            data[0]['percent_change_1h'] + "%)")
-
-    @commands.command()
-    async def neo(self):
-        """What is NEO's live price"""
-        url = "https://api.coinmarketcap.com/v1/ticker/neo"
-        data = self.get_jsonparsed_data(url)
-        await self.bot.say(data[0]['name'] + " is priced $" + data[0]['price_usd'] + " (" +
-                            data[0]['percent_change_1h'] + "%)")
-
-    @commands.command()
-    async def xrm(self):
-        """What is Monero's live price"""
-        url = "https://api.coinmarketcap.com/v1/ticker/monero"
-        data = self.get_jsonparsed_data(url)
-        await self.bot.say(data[0]['name'] + " is priced $" + data[0]['price_usd'] + " (" +
-                            data[0]['percent_change_1h'] + "%)")
-
-
-    @commands.command()
-    async def xlm(self):
-        """What is Stellar's live price"""
-        url = "https://api.coinmarketcap.com/v1/ticker/stellar"
+        url = "https://api.coinmarketcap.com/v1/ticker/" + ticker 
         data = self.get_jsonparsed_data(url)
         await self.bot.say(data[0]['name'] + " is priced $" + data[0]['price_usd'] + " (" +
                             data[0]['percent_change_1h'] + "%)")
