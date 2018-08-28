@@ -6,7 +6,7 @@ class countdown:
 
     def __init__(self, bot):
         self.bot = bot
-        self.jamtime = datetime.datetime(2018, 10, 29)
+        self.jamtime = datetime.datetime(2018, 10, 26)
 
     @commands.command(name="jamcountdown", aliases=["jamcount", "jamtimer", "jamtime"])
 
