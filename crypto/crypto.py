@@ -10,7 +10,7 @@ refactored by jaypz
 
 import discord
 from discord.ext import commands
-from urllib.request import urlopen
+from urllib.request import urlopen, HTTPError
 import json
 
 
@@ -27,11 +27,14 @@ class Crypto:
 
     @commands.command()
     async def crypto(self, ticker):
-        """What is Bitcoin's live price"""
-        url = "https://api.coinmarketcap.com/v1/ticker/" + ticker 
-        data = self.get_jsonparsed_data(url)
-        await self.bot.say(data[0]['name'] + " is priced $" + data[0]['price_usd'] + " (" +
-                            data[0]['percent_change_1h'] + "%)")
+        """What is a coin's live price"""
+        url = "https://api.coinmarketcap.com/v1/ticker/" + ticker
+        try:
+            data = self.get_jsonparsed_data(url)
+            await self.bot.say(data[0]['name'] + " is priced $" + data[0]['price_usd'] + " (" +
+                                        data[0]['percent_change_1h'] + "%)")
+        except HTTPError:
+            await self.bot.say("Sorry couldn't find that, use the full name of the coin not the short ex: `%crypto bitcoin` `%crypto ripple`")
 
     @commands.command()
     async def top5(self):
