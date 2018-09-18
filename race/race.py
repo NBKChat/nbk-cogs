@@ -16,24 +16,23 @@ from pprint import pprint
 
 animals = ((':rabbit2:', 'fast'), (':monkey:', 'fast'), (':cat2:', 'fast'), (':mouse2:', 'slow'),
            (':chipmunk:', 'fast'), (':rat:',
-            'fast'), (':dove:', 'fast'), (':bird:', 'fast'),
+                                    'fast'), (':dove:', 'fast'), (':bird:', 'fast'),
            (':dromedary_camel:', 'steady'), (':camel:',
-            'steady'), (':dog2:', 'steady'),
+                                             'steady'), (':dog2:', 'steady'),
            (':poodle:', 'steady'), (':racehorse:', 'steady'), (':ox:', 'abberant'),
            (':cow2:', 'abberant'), (':elephant:',
-            'abberant'), (':water_buffalo:', 'abberant'),
+                                    'abberant'), (':water_buffalo:', 'abberant'),
            (':ram:', 'abberant'), (':goat:', 'abberant'), (':sheep:', 'abberant'),
            (':leopard:', 'predator'), (':tiger2:',
-            'predator'), (':dragon:', 'special'),
+                                       'predator'), (':dragon:', 'special'),
            (':unicorn:', 'special'), (':turtle:',
-            'slow'), (':bug:', 'slow'), (':rooster:', 'slow'),
+                                      'slow'), (':bug:', 'slow'), (':rooster:', 'slow'),
            (':snail:', 'slow'), (':scorpion:',
-            'slow'), (':crocodile:', 'slow'), (':pig2:', 'slow'),
+                                 'slow'), (':crocodile:', 'slow'), (':pig2:', 'slow'),
            (':turkey:', 'slow'), (':duck:', 'slow'), (':baby_chick:', 'slow'))
 
 
 class Racer:
-
     track = '•   ' * 20
 
     def __init__(self, animal, mode, user):
@@ -60,10 +59,11 @@ class Racer:
                         Racer.track[max(0, self.position - distance):])
 
     '''self.get_position()'''
+
     def update_position(self):
         self.turn += 1
         self.update_track()
-        self.position = 0
+        self.position = self.get_position()
 
     def move(self):
         if self.mode == 'slow':
@@ -110,7 +110,6 @@ class Race:
         self.system = {}
         self.config = dataIO.load_json('data/race/race.json')
         self.version = "1.1.04"
-        self.DEBUG = True
 
     @commands.group(pass_context=True, no_pm=True)
     async def race(self, ctx):
@@ -249,6 +248,9 @@ class Race:
             return
 
         self.game_teardown(data, force=True)
+        if self.bot.user.id in data['Players']:
+            await self.npc_make_bet()
+
         data['Race Active'] = True
         data['Players'][author.id] = {}
         wait = settings['Time']
@@ -262,7 +264,7 @@ class Race:
         data['Race Start'] = True
 
         racers = self.game_setup(author, data, settings['Mode'])
-        race_msg = await self.bot.say('\u200b'+'\n'+'\n'.join([player.field() for player in racers]))
+        race_msg = await self.bot.say('\u200b' + '\n' + '\n'.join([player.field() for player in racers]))
         await self.run_game(racers, race_msg, data)
 
         footer = "Type {}race claim to receive prize money. You must claim it before the next race!"
@@ -292,8 +294,17 @@ class Race:
     @race.command(name="totalBets", pass_context=True)
     @commands.cooldown(1, 5, commands.BucketType.server)
     async def _get_total_bets(self):
+        """View total bets.
+
+        Returns:
+            Text informing the user that of the current Pot size
+
+        Notes:
+            Users can only place 1 bet,
+            They are only entitled to the amount the place (if other enter at higher value)
+            If Player does not bet, they are not entitled to anything.
+        """
         bet_total = 0
-        pprint(self.bets)
         for key, value in self.bets.items():
             pprint(value)
             bet_total += int(value)
@@ -313,24 +324,28 @@ class Race:
         """
         author = ctx.message.author
         data = self.check_server(author.server)
+        bets = self.bets
+        bot = self.bot
 
         if data['Race Start']:
             return
         elif not data['Race Active']:
             return
-        elif author.id in self.bets:
-            await self.bot.say("{0} has already placed a bet or **{1}**".format(author.name, betAmount))
-            return
-        elif len(self.bets) == 8:
+        elif author.id in bets:
+            return await bot.say("{0} has already placed a bet or **{1}**".format(author.name, betAmount))
+        elif len(bets) == 8:
             return
         else:
-            self.bets[author.id] = int(betAmount)
-            try:
-                bank = self.bot.get_cog('Economy').bank
-            except AttributeError:
-                return await self.bot.say("Economy is not loaded.")
-            bank.withdraw_credits(author, betAmount)
-            await self.bot.say("{0} placed a **{1}** credit bet!".format(author.name, betAmount))
+            if author.id in data['Players']:
+                bets[author.id] = int(betAmount)
+                try:
+                    bank = bot.get_cog('Economy').bank
+                except AttributeError:
+                    return await bot.say("Economy is not loaded.")
+                bank.withdraw_credits(author, betAmount)
+                await bot.say("{0} placed a **{1}** credit bet!".format(author.name, betAmount))
+            else:
+                return await bot.say("NO {} !!! YOU ARE NOT IN THE RACE! SIDDOWN!")
 
     @race.command(name="enter", pass_context=True)
     async def _enter_race(self, ctx):
@@ -437,24 +452,50 @@ class Race:
     def save_settings(self):
         dataIO.save_json('data/race/race.json', self.config)
 
+    async def npc_make_bet(self):
+        total_bets = 0
+        bot = self.bot
+        bets = self.bets
+
+        for key, value in bets.items():
+            total_bets += int(value)
+        try:  # Because people will play games for money without a fucking account smh
+            try:
+                bank = bot.get_cog('Economy').bank
+            except AttributeError:
+                return await bot.say("Economy is not loaded.")
+
+            if bank.get_balance(bot.user) < total_bets:
+                bank.deposit_credits(bot.user, total_bets)
+
+            bank.withdraw_credits(bot.user, total_bets)
+            bets[bot.user.id] = total_bets
+        except Exception as e:
+            print('{} raised {} because they are stupid.'.format(bot.user, type(e)))
+            await bot.say("[p]bank register")
+        else:
+            await bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets * 2))
+
     async def payout_betters(self, data):
         totalpayout = 0
-        for key, value in self.bets.items():
-            print(totalpayout)
+        bets = self.bets
+        bot = self.bot
+
+        for key, value in bets.items():
             totalpayout += int(value)
         try:  # Because people will play games for money without a fucking account smh
             try:
-                bank = self.bot.get_cog('Economy').bank
+                bank = bot.get_cog('Economy').bank
             except AttributeError:
-                return await self.bot.say("Economy is not loaded.")
-            bank.deposit_credits(data['Winner'], 100)
+                return await bot.say("Economy is not loaded.")
+            bank.deposit_credits(data['Winner'], totalpayout)
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(data['Winner'], type(e)))
-            await self.bot.say("We wanted to give you a prize, but you didn't have a bank "
-                               "account.\nGo register a bank account ya hippie!" ""
-                               "\nYou missed out on {} credits".format(totalpayout))
+            await bot.say("We wanted to give you a prize, but you didn't have a bank "
+                          "account.\nGo register a bank account ya hippie!"
+                          "\nYou missed out on {} credits".format(totalpayout))
         else:
-            await self.bot.say("Congrats {0}, you get {1} credits.".format(data['Winner'].name, totalpayout))
+            await bot.say("Congrats {0}, you get {1} credits.".format(data['Winner'].name, totalpayout))
         finally:
             data['Winner'] = None
 
@@ -509,7 +550,7 @@ class Race:
                         data['Third'] = (player.user, player.animal, speed)
                         player.placed = True
             field = [player.field() for player in racers]
-            await self.bot.edit_message(game, '\u200b'+'\n'+'\n'.join(field))
+            await self.bot.edit_message(game, '\u200b' + '\n' + '\n'.join(field))
 
             if [player.get_position() for player in racers].count(0) == len(racers):
                 break
