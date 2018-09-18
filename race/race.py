@@ -248,8 +248,9 @@ class Race:
             return
 
         self.game_teardown(data, force=True)
-        if self.bot.id in data['Players']:
-            print(self.bot.id)
+        if self.bot.user.id in data['Players']:
+            print(self.bot.user.id)
+            pprint(data['Players'])
             print('placing bet')
             self.npc_make_bet()
 
