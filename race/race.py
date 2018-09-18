@@ -473,8 +473,9 @@ class Race:
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(bot.user, type(e)))
             await bot.say("[p]bank register")
+            await self.npc_make_bet()
         else:
-            await bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets * 2))
+            await bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
 
     async def payout_betters(self, data):
         totalpayout = 0
