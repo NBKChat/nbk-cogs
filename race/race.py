@@ -249,7 +249,7 @@ class Race:
 
         self.game_teardown(data, force=True)
         if self.bot.user.id in data['Players']:
-            await self.npc_make_bet()
+            self.npc_make_bet()
 
         data['Race Active'] = True
         data['Players'][author.id] = {}
@@ -452,7 +452,7 @@ class Race:
     def save_settings(self):
         dataIO.save_json('data/race/race.json', self.config)
 
-    async def npc_make_bet(self):
+    def npc_make_bet(self):
         total_bets = 0
         bot = self.bot
         bets = self.bets
@@ -463,7 +463,7 @@ class Race:
             try:
                 bank = bot.get_cog('Economy').bank
             except AttributeError:
-                return await bot.say("Economy is not loaded.")
+                return bot.say("Economy is not loaded.")
 
             if bank.get_balance(bot.user) < total_bets:
                 bank.deposit_credits(bot.user, total_bets)
@@ -472,12 +472,12 @@ class Race:
             self.bets[bot.user.id] = total_bets
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(bot.user, type(e)))
-            econ = await self.bot.get_cog('Economy')
+            econ = self.bot.get_cog('Economy')
             bank = econ.bank
-            await bank.create_account(bot)
-            await self.npc_make_bet()
+            bank.create_account(bot)
+            self.npc_make_bet()
         else:
-            await bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
+            bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
 
     async def payout_betters(self, data):
         totalpayout = 0
