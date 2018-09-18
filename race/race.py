@@ -469,10 +469,12 @@ class Race:
                 bank.deposit_credits(bot.user, total_bets)
 
             bank.withdraw_credits(bot.user, total_bets)
-            bets[bot.user.id] = total_bets
+            self.bets[bot.user.id] = total_bets
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(bot.user, type(e)))
-            await bot.say("[p]bank register")
+            econ = await self.bot.get_cog('Economy')
+            bank = econ.bank
+            await bank.create_account(bot)
             await self.npc_make_bet()
         else:
             await bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
