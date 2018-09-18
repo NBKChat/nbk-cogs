@@ -248,7 +248,9 @@ class Race:
             return
 
         self.game_teardown(data, force=True)
-        if self.bot.user.id in data['Players']:
+        if self.bot.id in data['Players']:
+            print(self.bot.id)
+            print('placing bet')
             self.npc_make_bet()
 
         data['Race Active'] = True
