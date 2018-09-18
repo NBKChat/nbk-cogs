@@ -30,7 +30,7 @@ class Ghead:
     async def grand(self):
 
         files = list_dir(whiskey_url, ext)
-        await self.bot.say("https://whiskeycrow.com/Graal/heads/" + random.choice(files))
+        await self.bot.say("https://whiskeycrow.com" + random.choice(files))
 
 
     @commands.command()
