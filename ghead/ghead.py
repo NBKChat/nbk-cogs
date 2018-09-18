@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import random
 
-whiskey_url = 'http://whiskeycrow.com/Graal/heads/'
+whiskey_url = 'https://whiskeycrow.com/Graal/heads/'
 mafukie_url = 'https://graalserver.com/assets/images/'
 ext = 'gif'
 
@@ -21,8 +21,8 @@ class Ghead:
     async def ghead(self, head):
 
         files = list_dir(whiskey_url, ext)
-        if head + ".gif" in files:
-            await self.bot.say("http://whiskeycrow.com/Graal/heads/" + head + ".gif")
+        if "/Graal/heads/" + head + ".gif" in files:
+            await self.bot.say("https://whiskeycrow.com/Graal/heads/" + head + ".gif")
         else:
             await self.bot.say(head + " not found, noob")
 
@@ -30,7 +30,7 @@ class Ghead:
     async def grand(self):
 
         files = list_dir(whiskey_url, ext)
-        await self.bot.say("http://whiskeycrow.com/Graal/heads/" + random.choice(files))
+        await self.bot.say("https://whiskeycrow.com" + random.choice(files))
 
 
     @commands.command()
