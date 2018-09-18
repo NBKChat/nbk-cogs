@@ -21,7 +21,7 @@ class Ghead:
     async def ghead(self, head):
 
         files = list_dir(whiskey_url, ext)
-        if head + ".gif" in files:
+        if head in files:
             await self.bot.say("https://whiskeycrow.com/Graal/heads/" + head + ".gif")
         else:
             await self.bot.say(head + " not found, noob")
