@@ -292,7 +292,8 @@ class Race:
         embed.title = "Race Results"
         embed.set_footer(text=footer.format(ctx.prefix))
         await self.bot.say(content=data['Winner'].mention, embed=embed)
-        await self.payout_betters(data, ctx)
+        if len(self.bets) > 0:
+            await self.payout_betters(data, ctx)
         self.game_teardown(data)
 
     @race.command(name="totalBets", pass_context=True)
@@ -466,9 +467,12 @@ class Race:
             total_bets += int(value)
         try:  # Because people will play games for money without a fucking account smh
             try:
-                bank = bot.get_cog('Economy').bank
+                economy_cog = bot.get_cog('Economy')
+                bank = economy_cog.bank
             except AttributeError:
-                return bot.say("Economy is not loaded.")
+                return await bot.say("Economy is not loaded.")
+            except economy_cog.economy.InsufficientBalance:
+                return await bot.say("Insufficient Funds, you looking for handouts?")
 
             if bank.get_balance(botuser) < total_bets:
                 bank.deposit_credits(botuser, total_bets)
