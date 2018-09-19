@@ -262,7 +262,7 @@ class Race:
 
         data['Race Start'] = True
 
-        racers = self.game_setup(author, data, settings['Mode'])
+        racers = self.game_setup(author, data, settings['Mode'], ctx)
         race_msg = await self.bot.say('\u200b' + '\n' + '\n'.join([player.field() for player in racers]))
         await self.run_game(racers, race_msg, data)
 
@@ -451,11 +451,12 @@ class Race:
     def save_settings(self):
         dataIO.save_json('data/race/race.json', self.config)
 
-    def npc_make_bet(self):
+    def npc_make_bet(self, ctx):
         total_bets = 0
         bot = self.bot
+        botuser = ctx.message.server.me
         bets = self.bets
-        pprint(bot)
+        pprint(botuser)
         for key, value in bets.items():
             total_bets += int(value)
         try:  # Because people will play games for money without a fucking account smh
@@ -464,17 +465,17 @@ class Race:
             except AttributeError:
                 return bot.say("Economy is not loaded.")
 
-            if bank.get_balance(bot) < total_bets:
-                bank.deposit_credits(bot, total_bets)
+            if bank.get_balance(botuser) < total_bets:
+                bank.deposit_credits(botuser, total_bets)
 
-            bank.withdraw_credits(bot, total_bets)
+            bank.withdraw_credits(botuser, total_bets)
             self.bets[bot.user.id] = total_bets
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(bot.user, type(e)))
             econ = self.bot.get_cog('Economy')
             bank = econ.bank
-            bank.create_account(bot)
-            self.npc_make_bet()
+            bank.create_account(botuser)
+            self.npc_make_bet(ctx)
         else:
             bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
 
@@ -501,11 +502,11 @@ class Race:
         finally:
             data['Winner'] = None
 
-    def game_setup(self, author, data, mode):
+    def game_setup(self, author, data, mode, ctx):
 
         if len(data['Players']) == 1:
             print('placing bet')
-            self.npc_make_bet()
+            self.npc_make_bet(ctx)
 
         racers = []
 
