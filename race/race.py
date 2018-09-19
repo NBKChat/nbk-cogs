@@ -262,7 +262,8 @@ class Race:
                            "race!".format(ctx.prefix, ' ' * 25, wait, author.mention))
         await asyncio.sleep(wait)
         if len(data['Players']) == 1:
-            await self.npc_make_bet(ctx)
+            if self.bets != {}:
+                await self.npc_make_bet(ctx)
         await self.bot.say(":checkered_flag: The race is now in progress :checkered_flag:")
 
         data['Race Start'] = True
