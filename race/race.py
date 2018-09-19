@@ -464,10 +464,10 @@ class Race:
             except AttributeError:
                 return bot.say("Economy is not loaded.")
 
-            if bank.get_balance(bot.user) < total_bets:
-                bank.deposit_credits(bot.user, total_bets)
+            if bank.get_balance(bot) < total_bets:
+                bank.deposit_credits(bot, total_bets)
 
-            bank.withdraw_credits(bot.user, total_bets)
+            bank.withdraw_credits(bot, total_bets)
             self.bets[bot.user.id] = total_bets
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(bot.user, type(e)))
