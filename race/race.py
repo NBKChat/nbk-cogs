@@ -483,11 +483,10 @@ class Race:
         totalpayout = 0
         bets = self.bets
         bot = self.bot
-        await pprint(data['Winner'])
         if bot.user == data['Winner']:
             winner = ctx.message.server.me
         else:
-            winner = data['Winner']
+            winner = data['Winner'].user
 
         for key, value in bets.items():
             totalpayout += int(value)
@@ -496,7 +495,6 @@ class Race:
                 bank = bot.get_cog('Economy').bank
             except AttributeError:
                 return await bot.say("Economy is not loaded.")
-            await pprint(data['Winner'])
             bank.deposit_credits(winner, totalpayout)
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(data['Winner'], type(e)))
@@ -505,8 +503,6 @@ class Race:
                           "\nYou missed out on {} credits".format(totalpayout))
         else:
             await bot.say("Congrats {0}, you get {1} credits.".format(data['Winner'].name, totalpayout))
-        finally:
-            data['Winner'] = None
 
     def game_setup(self, author, data, mode, ctx):
 
