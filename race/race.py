@@ -483,6 +483,7 @@ class Race:
         totalpayout = 0
         bets = self.bets
         bot = self.bot
+        await pprint(data['Winner'])
         if bot.user == data['Winner']:
             winner = ctx.message.server.me
         else:
