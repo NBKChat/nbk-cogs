@@ -248,9 +248,6 @@ class Race:
             return
 
         self.game_teardown(data, force=True)
-        if len(data['Players']) == 1:
-            print('placing bet')
-            await self.npc_make_bet()
 
         data['Race Active'] = True
         data['Players'][author.id] = {}
@@ -505,6 +502,10 @@ class Race:
             data['Winner'] = None
 
     def game_setup(self, author, data, mode):
+
+        if len(data['Players']) == 1:
+            print('placing bet')
+            self.npc_make_bet()
 
         racers = []
 
