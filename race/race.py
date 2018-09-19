@@ -455,7 +455,7 @@ class Race:
         total_bets = 0
         bot = self.bot
         bets = self.bets
-
+        pprint(bot)
         for key, value in bets.items():
             total_bets += int(value)
         try:  # Because people will play games for money without a fucking account smh
