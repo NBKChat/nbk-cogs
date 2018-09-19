@@ -475,7 +475,7 @@ class Race:
             print('making bet')
             bank.withdraw_credits(botuser, total_bets)
             self.bets[bot.user.id] = total_bets
-            await bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
+            await bot.say("Bot {0} bets ***{1}*** credits.".format(bot.user.name, total_bets))
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(bot.user, type(e)))
             econ = self.bot.get_cog('Economy')
@@ -487,7 +487,10 @@ class Race:
         totalpayout = 0
         bets = self.bets
         bot = self.bot
-        winner = data['Winner']
+        if bot.user == data['Winner']:
+            winner = ctx.message.server.me
+        else:
+            winner = data['Winner']
 
         for key, value in bets.items():
             totalpayout += int(value)
