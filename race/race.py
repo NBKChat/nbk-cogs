@@ -471,7 +471,7 @@ class Race:
                 bank = economy_cog.bank
             except AttributeError:
                 return await bot.say("Economy is not loaded.")
-            except economy_cog.economy.InsufficientBalance:
+            except ValueError:
                 return await bot.say("Insufficient Funds, you looking for handouts?")
 
             if bank.get_balance(botuser) < total_bets:
