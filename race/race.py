@@ -470,7 +470,7 @@ class Race:
 
             if bank.get_balance(botuser) < total_bets:
                 bank.deposit_credits(botuser, total_bets)
-
+            print('making bet')
             bank.withdraw_credits(botuser, total_bets)
             self.bets[bot.user.id] = total_bets
         except Exception as e:
@@ -486,10 +486,7 @@ class Race:
         totalpayout = 0
         bets = self.bets
         bot = self.bot
-        if bot.user == data['Winner']:
-            winner = ctx.message.server.me
-        else:
-            winner = data['Winner'].get_user()
+        winner = data['Winner'].get_user()
 
         for key, value in bets.items():
             totalpayout += int(value)
