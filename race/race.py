@@ -305,7 +305,6 @@ class Race:
         """
         bet_total = 0
         for key, value in self.bets.items():
-            pprint(value)
             bet_total += int(value)
         await self.bot.say("Total Pot: {}".format(bet_total))
 
@@ -452,7 +451,7 @@ class Race:
     def save_settings(self):
         dataIO.save_json('data/race/race.json', self.config)
 
-    def npc_make_bet(self, ctx):
+    async def npc_make_bet(self, ctx):
         total_bets = 0
         bot = self.bot
         botuser = ctx.message.server.me
@@ -476,9 +475,9 @@ class Race:
             econ = self.bot.get_cog('Economy')
             bank = econ.bank
             bank.create_account(botuser)
-            self.npc_make_bet(ctx)
+            await self.npc_make_bet(ctx)
         else:
-            bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
+            await bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
 
     async def payout_betters(self, data, ctx):
         totalpayout = 0
@@ -496,7 +495,7 @@ class Race:
                 bank = bot.get_cog('Economy').bank
             except AttributeError:
                 return await bot.say("Economy is not loaded.")
-            pprint(data['Winner'])
+            await pprint(data['Winner'])
             bank.deposit_credits(winner, totalpayout)
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(data['Winner'], type(e)))
@@ -511,7 +510,6 @@ class Race:
     def game_setup(self, author, data, mode, ctx):
 
         if len(data['Players']) == 1:
-            print('placing bet')
             self.npc_make_bet(ctx)
 
         racers = []
