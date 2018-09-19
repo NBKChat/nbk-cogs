@@ -254,8 +254,7 @@ class Race:
 
         data['Race Active'] = True
         data['Players'][author.id] = {}
-        wait = 20
-        '''settings['Time']'''
+        wait = settings['Time']
         await self.bot.say(":triangular_flag_on_post: A race has begun! Type {}race enter "
                            "to join the race! :triangular_flag_on_post:\n{}The race will "
                            "begin in {} seconds!\n\n**{}** entered the "
