@@ -352,7 +352,7 @@ class Race:
                 except Exception as e:
                     return await bot.say("Insufficient Funds, you looking for handouts? {}".format(e))
             else:
-                return await bot.say("NO {} !!! YOU ARE NOT IN THE RACE! SIDDOWN!")
+                return await bot.say("NO {} !!! YOU ARE NOT IN THE RACE! SIDDOWN!".format(author.name))
 
     @race.command(name="enter", pass_context=True)
     async def _enter_race(self, ctx):
