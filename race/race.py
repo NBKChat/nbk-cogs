@@ -513,7 +513,7 @@ class Race:
                                          "account.\nGo register a bank account ya hippie!"
                                          "\nYou missed out on {} credits".format(totalpayout))
                 else:
-                    await bot.say("You didn't bet, siddown")
+                    await bot.say("You didn't bet, siddown, one day you'll all be refunded.")
 
     def game_setup(self, author, data, mode):
 
