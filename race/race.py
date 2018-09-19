@@ -348,8 +348,9 @@ class Race:
                     await bot.say("{0} placed a **{1}** credit bet!".format(author.name, betAmount))
                 except AttributeError:
                     return await bot.say("Economy is not loaded.")
-                except ValueError:
-                    return await bot.say("Insufficient Funds, you looking for handouts?")
+                except Exception as e:
+
+                    return await bot.say("Insufficient Funds, you looking for handouts? {}".format(e))
             else:
                 return await bot.say("NO {} !!! YOU ARE NOT IN THE RACE! SIDDOWN!")
 
