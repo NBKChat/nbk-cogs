@@ -447,6 +447,7 @@ class Race:
         data['Second'] = None
         data['Third'] = None
         data['Players'].clear()
+        self.bets = {}
 
     def save_settings(self):
         dataIO.save_json('data/race/race.json', self.config)
@@ -479,10 +480,14 @@ class Race:
         else:
             bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
 
-    async def payout_betters(self, data):
+    async def payout_betters(self, data, ctx):
         totalpayout = 0
         bets = self.bets
         bot = self.bot
+        if bot.user == data['Winner']:
+            winner = ctx.message.server.me
+        else:
+            winner = data['Winner']
 
         for key, value in bets.items():
             totalpayout += int(value)
@@ -491,7 +496,8 @@ class Race:
                 bank = bot.get_cog('Economy').bank
             except AttributeError:
                 return await bot.say("Economy is not loaded.")
-            bank.deposit_credits(data['Winner'], totalpayout)
+            pprint(data['Winner'])
+            bank.deposit_credits(winner, totalpayout)
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(data['Winner'], type(e)))
             await bot.say("We wanted to give you a prize, but you didn't have a bank "
