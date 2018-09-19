@@ -45,6 +45,9 @@ class Racer:
         self.current = Racer.track + self.animal
         self.bet = 0
 
+    def get_user(self):
+        return self.user
+
     def field(self):
         field = ":carrot: **{}** :flag_black:  [{}]".format(
             self.current, self.user)
@@ -486,7 +489,7 @@ class Race:
         if bot.user == data['Winner']:
             winner = ctx.message.server.me
         else:
-            winner = data['Winner'].user
+            winner = data['Winner'].get_user()
 
         for key, value in bets.items():
             totalpayout += int(value)
