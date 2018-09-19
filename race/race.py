@@ -248,15 +248,16 @@ class Race:
             return
 
         self.game_teardown(data, force=True)
+        print(self.bot.user.id)
+        pprint(data['Players'])
         if self.bot.user.id in data['Players']:
-            print(self.bot.user.id)
-            pprint(data['Players'])
             print('placing bet')
-            self.npc_make_bet()
+            await self.npc_make_bet()
 
         data['Race Active'] = True
         data['Players'][author.id] = {}
-        wait = settings['Time']
+        wait = 10
+        '''settings['Time']'''
         await self.bot.say(":triangular_flag_on_post: A race has begun! Type {}race enter "
                            "to join the race! :triangular_flag_on_post:\n{}The race will "
                            "begin in {} seconds!\n\n**{}** entered the "
