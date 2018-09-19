@@ -254,6 +254,8 @@ class Race:
 
         data['Race Active'] = True
         data['Players'][author.id] = {}
+        if len(data['Players']) == 1:
+            await self.npc_make_bet(ctx)
         wait = 20
         '''settings['Time']'''
         await self.bot.say(":triangular_flag_on_post: A race has begun! Type {}race enter "
@@ -266,8 +268,6 @@ class Race:
         data['Race Start'] = True
 
         racers = self.game_setup(author, data, settings['Mode'])
-        if len(data['Players']) == 1:
-            await self.npc_make_bet(ctx)
         race_msg = await self.bot.say('\u200b' + '\n' + '\n'.join([player.field() for player in racers]))
         await self.run_game(racers, race_msg, data)
 
