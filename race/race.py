@@ -225,7 +225,7 @@ class Race:
         await self.bot.say("Parameters reset.")
 
     @race.command(name="start", pass_context=True)
-    @commands.cooldown(1, 120, commands.BucketType.server)
+    @commands.cooldown(1, 30, commands.BucketType.server)
     async def _start_race(self, ctx):
         """Start an animal race and enter yourself as participant
 
@@ -254,7 +254,7 @@ class Race:
 
         data['Race Active'] = True
         data['Players'][author.id] = {}
-        wait = 10
+        wait = 20
         '''settings['Time']'''
         await self.bot.say(":triangular_flag_on_post: A race has begun! Type {}race enter "
                            "to join the race! :triangular_flag_on_post:\n{}The race will "
