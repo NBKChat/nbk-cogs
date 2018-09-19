@@ -475,14 +475,13 @@ class Race:
             print('making bet')
             bank.withdraw_credits(botuser, total_bets)
             self.bets[bot.user.id] = total_bets
+            await bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(bot.user, type(e)))
             econ = self.bot.get_cog('Economy')
             bank = econ.bank
             bank.create_account(botuser)
             await self.npc_make_bet(ctx)
-        else:
-            await bot.say("Bot {0} bets {1} credits.".format(bot.user.name, total_bets))
 
     async def payout_betters(self, data, ctx):
         totalpayout = 0
