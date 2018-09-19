@@ -346,8 +346,11 @@ class Race:
                     bank = bot.get_cog('Economy').bank
                 except AttributeError:
                     return await bot.say("Economy is not loaded.")
-                bank.withdraw_credits(author, betAmount)
-                await bot.say("{0} placed a **{1}** credit bet!".format(author.name, betAmount))
+                try:
+                    bank.withdraw_credits(author, betAmount)
+                    await bot.say("{0} placed a **{1}** credit bet!".format(author.name, betAmount))
+                except ValueError:
+                    return await bot.say("Insufficient Funds, you looking for handouts?")
             else:
                 return await bot.say("NO {} !!! YOU ARE NOT IN THE RACE! SIDDOWN!")
 
@@ -474,7 +477,6 @@ class Race:
 
             if bank.get_balance(botuser) < total_bets:
                 bank.deposit_credits(botuser, total_bets)
-            print('making bet')
             bank.withdraw_credits(botuser, total_bets)
             self.bets[bot.user.id] = total_bets
             await bot.say("Bot {0} bets ***{1}*** credits.".format(bot.user.name, total_bets))
