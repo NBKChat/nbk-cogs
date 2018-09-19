@@ -486,7 +486,7 @@ class Race:
         totalpayout = 0
         bets = self.bets
         bot = self.bot
-        winner = data['Winner'].get_user()
+        winner = data['Winner']
 
         for key, value in bets.items():
             totalpayout += int(value)
