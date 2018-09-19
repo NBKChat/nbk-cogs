@@ -287,7 +287,7 @@ class Race:
         embed.title = "Race Results"
         embed.set_footer(text=footer.format(ctx.prefix))
         await self.bot.say(content=data['Winner'].mention, embed=embed)
-        await self.payout_betters(data)
+        await self.payout_betters(data, ctx)
         self.game_teardown(data)
 
     @race.command(name="totalBets", pass_context=True)
