@@ -341,14 +341,13 @@ class Race:
             return
         else:
             if author.id in data['Players']:
-                bets[author.id] = int(betAmount)
                 try:
                     bank = bot.get_cog('Economy').bank
+                    bank.withdraw_credits(author, betAmount)
+                    bets[author.id] = int(betAmount)
+                    await bot.say("{0} placed a **{1}** credit bet!".format(author.name, betAmount))
                 except AttributeError:
                     return await bot.say("Economy is not loaded.")
-                try:
-                    bank.withdraw_credits(author, betAmount)
-                    await bot.say("{0} placed a **{1}** credit bet!".format(author.name, betAmount))
                 except ValueError:
                     return await bot.say("Insufficient Funds, you looking for handouts?")
             else:
