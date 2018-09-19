@@ -265,7 +265,9 @@ class Race:
 
         data['Race Start'] = True
 
-        racers = self.game_setup(author, data, settings['Mode'], ctx)
+        racers = self.game_setup(author, data, settings['Mode'])
+        if len(data['Players']) == 1:
+            await self.npc_make_bet(ctx)
         race_msg = await self.bot.say('\u200b' + '\n' + '\n'.join([player.field() for player in racers]))
         await self.run_game(racers, race_msg, data)
 
@@ -504,10 +506,7 @@ class Race:
         else:
             await bot.say("Congrats {0}, you get {1} credits.".format(data['Winner'].name, totalpayout))
 
-    def game_setup(self, author, data, mode, ctx):
-
-        if len(data['Players']) == 1:
-            self.npc_make_bet(ctx)
+    def game_setup(self, author, data, mode):
 
         racers = []
 
