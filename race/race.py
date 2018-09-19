@@ -254,8 +254,6 @@ class Race:
 
         data['Race Active'] = True
         data['Players'][author.id] = {}
-        if len(data['Players']) == 1:
-            await self.npc_make_bet(ctx)
         wait = 20
         '''settings['Time']'''
         await self.bot.say(":triangular_flag_on_post: A race has begun! Type {}race enter "
@@ -263,6 +261,8 @@ class Race:
                            "begin in {} seconds!\n\n**{}** entered the "
                            "race!".format(ctx.prefix, ' ' * 25, wait, author.mention))
         await asyncio.sleep(wait)
+        if len(data['Players']) == 1:
+            await self.npc_make_bet(ctx)
         await self.bot.say(":checkered_flag: The race is now in progress :checkered_flag:")
 
         data['Race Start'] = True
@@ -471,8 +471,6 @@ class Race:
                 bank = economy_cog.bank
             except AttributeError:
                 return await bot.say("Economy is not loaded.")
-            except ValueError:
-                return await bot.say("Insufficient Funds, you looking for handouts?")
 
             if bank.get_balance(botuser) < total_bets:
                 bank.deposit_credits(botuser, total_bets)
@@ -480,6 +478,8 @@ class Race:
             bank.withdraw_credits(botuser, total_bets)
             self.bets[bot.user.id] = total_bets
             await bot.say("Bot {0} bets ***{1}*** credits.".format(bot.user.name, total_bets))
+        except ValueError:
+            return await bot.say("Insufficient Funds, you looking for handouts?")
         except Exception as e:
             print('{} raised {} because they are stupid.'.format(bot.user, type(e)))
             econ = self.bot.get_cog('Economy')
