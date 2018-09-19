@@ -336,7 +336,7 @@ class Race:
         elif not data['Race Active']:
             return
         elif author.id in bets:
-            return await bot.say("{0} has already placed a bet or **{1}**".format(author.name, betAmount))
+            return await bot.say("{0} has already placed a bet of **{1}**".format(author.name, bets[author.id]))
         elif len(bets) == 8:
             return
         else:
