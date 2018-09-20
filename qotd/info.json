@@ -1,0 +1,10 @@
+{
+    "AUTHOR" : "Tony Montana",
+    "INSTALL_MSG" : "Graal QOTD cog installed",
+    "NAME" : "Qotd",
+    "SHORT" : "Show a Qotd",
+    "DESCRIPTION" : "Read the short desciption, fool",
+    "TAGS" : ["QOTD"],
+    "REQUIREMENTS" : ["discord", "wikiquote", "ssl"],
+    "HIDDEN" : false
+}
