@@ -499,7 +499,7 @@ class Race:
 
         for key, value in bets.items():
             totalpayout += int(value)
-            if data['Winner'].id in bets:
+            if data['Winner'].id == key:
                 try:  # Because people will play games for money without a fucking account smh
                     try:
                         bank = bot.get_cog('Economy').bank
