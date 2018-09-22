@@ -499,21 +499,22 @@ class Race:
 
         for key, value in bets.items():
             totalpayout += int(value)
-            if data['Winner'].id == key:
-                try:  # Because people will play games for money without a fucking account smh
-                    try:
-                        bank = bot.get_cog('Economy').bank
-                    except AttributeError:
-                        return await bot.say("Economy is not loaded.")
-                    bank.deposit_credits(winner, totalpayout)
-                    await bot.say("Congrats {0}, you get {1} credits.".format(data['Winner'].name, totalpayout))
-                except Exception as e:
-                    print('{} raised {} because they are stupid.'.format(data['Winner'], type(e)))
-                    return await bot.say("We wanted to give you a prize, but you didn't have a bank "
-                                         "account.\nGo register a bank account ya hippie!"
-                                         "\nYou missed out on {} credits".format(totalpayout))
-                else:
-                    await bot.say("You didn't bet, siddown, one day you'll all be refunded.")
+
+        if data['Winner'].id in bets:
+            try:  # Because people will play games for money without a fucking account smh
+                try:
+                    bank = bot.get_cog('Economy').bank
+                except AttributeError:
+                    return await bot.say("Economy is not loaded.")
+                bank.deposit_credits(winner, totalpayout)
+                await bot.say("Congrats {0}, you get {1} credits.".format(data['Winner'].name, totalpayout))
+            except Exception as e:
+                print('{} raised {} because they are stupid.'.format(data['Winner'], type(e)))
+                return await bot.say("We wanted to give you a prize, but you didn't have a bank "
+                                     "account.\nGo register a bank account ya hippie!"
+                                     "\nYou missed out on {} credits".format(totalpayout))
+        else:
+            await bot.say("You didn't bet, siddown, one day you'll all be refunded.")
 
     def game_setup(self, author, data, mode):
 
