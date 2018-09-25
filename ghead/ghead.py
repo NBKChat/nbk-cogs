@@ -19,12 +19,13 @@ class Ghead:
 
     @commands.command()
     async def ghead(self, head):
-
-        files = list_dir(whiskey_url, ext)
-        if "/Graal/heads/" + head + ".gif" in files:
-            await self.bot.say("https://whiskeycrow.com/Graal/heads/" + head + ".gif")
-        else:
-            await self.bot.say(head + " not found, noob")
+        if "@" not in head:
+            files = list_dir(whiskey_url, ext)
+            if "/Graal/heads/" + head + ".gif" in files:
+               await self.bot.say("https://whiskeycrow.com/Graal/heads/" + head + ".gif")
+            else:
+               await self.bot.say(head + " not found, noob")
+        else: "Nice try, Minoc"
 
     @commands.command()
     async def grand(self):
