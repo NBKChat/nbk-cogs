@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from random import choice as randchoice
 
-class beefacts:
+class beeffacts:
 
     def __init__(self, bot):
         self.bot = bot
@@ -18,7 +18,7 @@ class beefacts:
         ]
 
     @commands.command(name="beeffact", aliases=["beeffacts", "BEEFFACT", "BEEFFACTS"])
-    async def beefact(self):
+    async def beeffact(self):
         await self.bot.say(randchoice(self.facts))
 
 
