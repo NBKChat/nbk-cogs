@@ -1,0 +1,9 @@
+{
+    "AUTHOR" : "Barthol",
+    "INSTALL_MSG" : "Displays facts about beef",
+    "NAME" : "beeffacts",
+    "SHORT" : "show a beef fact",
+    "DESCRIPTION" : "facts bout beef because bees befriend beef banimals",
+    "TAGS" : ["Beef", "Fact"],
+    "HIDDEN" : false
+}
