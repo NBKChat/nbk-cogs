@@ -12,7 +12,7 @@ class countdown:
 
     async def countdown(self):
         delta = self.jamtime - datetime.datetime.now()
-        if delta < 0:
+        if delta.days < 0:
             output = "its jamtime"
         else:
             output =  "{} days {} hours {} minutes until the jam".format(delta.days, delta.seconds//3600, (delta.seconds//60)%60)
