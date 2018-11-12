@@ -15,7 +15,7 @@ class countdown:
         if delta.days < 0:
             output = "its jamtime decision time"
         else:
-            output =  "{} days {} hours {} minutes until the jam".format(delta.days, delta.seconds//3600, (delta.seconds//60)%60)
+            output =  "{} days {} hours {} minutes until the jam decision".format(delta.days, delta.seconds//3600, (delta.seconds//60)%60)
         await self.bot.say(output)
 
 
