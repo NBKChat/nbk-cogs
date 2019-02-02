@@ -5,6 +5,6 @@
     "SHORT" : "Show a Qotd",
     "DESCRIPTION" : "Read the short desciption, fool",
     "TAGS" : ["QOTD"],
-    "REQUIREMENTS" : ["discord", "wikiquote", "ssl"],
+    "REQUIREMENTS" : ["discord", "requests", "json"],
     "HIDDEN" : false
 }
