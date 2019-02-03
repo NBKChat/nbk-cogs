@@ -1,0 +1,10 @@
+{
+    "AUTHOR" : "Tony Montana",
+    "INSTALL_MSG" : "Graal Advice cog installed",
+    "NAME" : "Advice",
+    "SHORT" : "Give some advice",
+    "DESCRIPTION" : "Read the short desciption, fool",
+    "TAGS" : ["ADVICE"],
+    "REQUIREMENTS" : ["discord", "requests", "json"],
+    "HIDDEN" : false
+}
