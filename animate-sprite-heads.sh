@@ -1,7 +1,7 @@
 #!/bin/bash
 
 convertgif() {
-    convert -dispose 3 -delay 20 -loop 0  ${1}.png -crop 32x32 +repage -depth 4 ${1}.tmp.gif
+    convert -dispose 2 -delay 20 -loop 0  ${1}.png -crop 32x32 +repage -depth 4 ${1}.tmp.gif
     convert ${1}.tmp.gif[0-3] ${1}.gif
     rm -f ${1}.tmp.gif
 }
