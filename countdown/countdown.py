@@ -6,14 +6,14 @@ class countdown:
 
     def __init__(self, bot):
         self.bot = bot
-        self.jamtime = datetime.datetime(2019, 6, 15)
+        self.jamtime = datetime.datetime(2019, 6, 28)
 
     @commands.command(name="jamcountdown", aliases=["jamcount", "jamtimer", "jamtime", "sharkweek"])
 
     async def countdown(self):
         delta = self.jamtime - datetime.datetime.now()
         if delta.days < 0:
-            output = "its jamtime decision time"
+            output = "it is presently shark week"
         else:
             output =  "{} days {} hours {} minutes until shark week".format(delta.days, delta.seconds//3600, (delta.seconds//60)%60)
         await self.bot.say(output)
