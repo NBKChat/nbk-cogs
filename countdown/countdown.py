@@ -13,7 +13,7 @@ class countdown:
     async def countdown(self):
         delta = self.jamtime - datetime.datetime.now()
         if delta.days < 0:
-            output = "it is presently shark week"
+            output = "it is permanently shark week"
         else:
             output =  "{} days {} hours {} minutes until shark week".format(delta.days, delta.seconds//3600, (delta.seconds//60)%60)
         await self.bot.say(output)
